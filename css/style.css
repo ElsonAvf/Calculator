@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+html,body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(#8FC3D9,#6991FE);
+}
+
+#calculator-container {
+  max-width: 410px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 16px;
+  box-shadow: 3px 3px 5px rgb(0,0,0,.4);
+  padding: 30px;
+  background-image: linear-gradient(#4A4A4A,#2C2C2C);
+}
+
+#screen {
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 4px rgb(0,0,0,.4);
+  height: 90px;
+  background-color: #2E495C;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  gap: 8px;
+}
+
+#top {
+  display: flex;
+  gap: 8px;
+}
+
+#number-container {
+  display: flex;
+  gap: 8px
+}
+
+#numbers {
+  max-width: 256px;
+  flex: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+button {
+  height: 80px;
+  width: 80px;
+  flex: initial;
+  font-size: 30px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+#numbers button {
+background-image: linear-gradient(#98B6C5,#989FC5);
+}
+
+#clean, #zero, #equal {
+  flex: 1 auto;
+}
+
+#clean {
+  background-image: linear-gradient(#FF1D0A, red);
+}  
+
+.operator {
+  background-image: linear-gradient(orange, darkorange);
+}
