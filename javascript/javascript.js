@@ -26,3 +26,18 @@ function operate(num1, operator, num2) {
       return divide(num1, num2)
   }
 }
+
+// Display inputs
+const screen = document.querySelector('#screen')
+const buttons = document.querySelector('#main');
+buttons.addEventListener('click', (e) => {
+  if (e.target.textContent == 'C') {
+    screen.textContent = '';
+  } else if (e.target.classList == 'operator') {
+    screen.textContent = e.target.textContent;
+  } else if (screen.textContent.length < 9) {
+    let text = screen.textContent;
+    screen.textContent = text + e.target.textContent
+  }
+  
+});
