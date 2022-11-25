@@ -36,7 +36,7 @@ body {
   height: 90px;
   background-color: #2E495C;
   color: white;
-  font-size: 60px;
+  font-size: 30px;
   font-size: auto;
 }
 
@@ -81,6 +81,7 @@ button {
   border-radius: 5px;
   border: none;
   box-sizing: border-box;
+  border: 2px solid black;
 }
 
 #numbers button {
