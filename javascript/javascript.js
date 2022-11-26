@@ -11,7 +11,10 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
- return (b == 0) ? alert('Não pode dividir por zero') :  a / b
+ if (b == 0) {
+   alert('Não pode dividir por zero');
+   return 0
+  } return a / b
 }
 
 function operate(num1, operator, num2) {
@@ -34,6 +37,9 @@ let numero1 = '', numero2 = '', operador = '', result;
 const screen = document.querySelector('#screen');
 const buttons = document.querySelector('#main');
 const numbers = document.querySelector('#numbers');
+const audio = document.querySelector('audio');
+const backspace = document.querySelector('#backspace');
+
 
 function clean() {
   screen.textContent = '',
@@ -49,12 +55,12 @@ function displayNumber(targetText) {
           if (!numero2) {
             numero2 += targetText;
             screen.textContent = numero2;
-          } else if (screen.textContent.length < 9) {
+          } else if (numero2.length < 9) {
                numero2 += targetText
                screen.textContent = numero2;
           }
-     }else {
-         if (screen.textContent.length < 9) {
+     } else {
+         if (numero1.length < 9) {
            numero1 += targetText;
            screen.textContent = numero1;
          }
@@ -64,8 +70,8 @@ function displayNumber(targetText) {
 
 function makeCalc() {
   result = operate(parseFloat(numero1), operador, parseFloat(numero2))
-  screen.textContent = Math.round(parseFloat(result)*100)/100;
-  numero1 = result;
+  screen.textContent = Math.round(result*100)/100;
+  numero1 = String(result);
   numero2 = '';
   operador = '';
 }
@@ -85,13 +91,17 @@ function setOperador(targetText) {
 function testDotInput(targetText) {
   if (numero2) {
     if (!screen.textContent.match(/[.]/g)) {
+      if (numero2.length < 9) {
       numero2 += targetText;
       screen.textContent = numero2;
+      }
     }
   } else {
     if (!screen.textContent.match(/[.]/g)) {
+      if (numero1.length < 9) {
       numero1 += targetText;
       screen.textContent = numero1;
+      }
     }
   }
 }
@@ -112,4 +122,18 @@ buttons.addEventListener('click', (e) => {
   if (targetText == '=' && numero2 && numero1 && operador) {
     makeCalc();
   }
+  audio.pause();
+  audio.play();
 });
+
+backspace.addEventListener('click', () => {
+  audio.pause();
+  audio.play();
+  if (numero2) {
+    numero2 = numero2.slice(0, numero2.length - 1);
+    screen.textContent = numero2;
+  } else {
+    numero1 = numero1.slice(0, numero2.length - 1);
+    screen.textContent = numero1;
+  }
+})
