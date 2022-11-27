@@ -30,9 +30,6 @@ function operate(num1, operator, num2) {
   }
 }
 
-// Variáveis para operações
-let numero1 = '', numero2 = '', operador = '', equalSignWasClicked = false, result;
-
 // Display inputs
 const screen = document.querySelector('#screen');
 const buttons = document.querySelector('#main');
@@ -41,6 +38,12 @@ const audio = document.querySelector('audio');
 const backspace = document.querySelector('#backspace');
 const screenEquation = document.querySelector('#equation-screen');
 const screenResult = document.querySelector('#result-screen');
+
+// Variáveis para operações
+let numero1 = '', numero2 = '', operador = ''
+let result;
+let equalSignWasClicked = false;
+
 
 function clean() {
   screenResult.textContent = '';
@@ -91,7 +94,13 @@ function setOperador(targetText) {
       equalSignWasClicked = false;
     }
     operador = targetText;
+    if (screenEquation.textContent[screenEquation.textContent.length - 1].match(/[x|÷|\-|\+]/)) {
+      let equationText = screenEquation.textContent;
+      equationText = equationText.slice(0, equationText.length - 1);
+      screenEquation.textContent = equationText + operador;
+    } else {
     screenEquation.textContent += targetText;
+    }
   }
 }
 
@@ -138,7 +147,8 @@ buttons.addEventListener('click', (e) => {
 backspace.addEventListener('click', () => {
   audio.currentTime = 0;
   audio.play();
-  // Pela legibilidade do código 
+  
+  // Pela legibilidade
   const equationText = screenEquation.textContent;
   if (numero2) {
     numero2 = numero2.slice(0, numero2.length - 1);

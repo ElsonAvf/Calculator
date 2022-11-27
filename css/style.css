@@ -42,7 +42,7 @@ body {
   overflow-wrap: break-word;
   text-align: right;
   max-width: 100%;
-  color: rgb(0,200,0);
+  color: #EAEAEA/*#007600*/;
 }
 
 #equation-screen {
