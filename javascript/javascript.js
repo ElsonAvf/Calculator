@@ -130,13 +130,13 @@ buttons.addEventListener('click', (e) => {
     makeCalc();
     equalSignWasClicked = true;
   }
-  audio.pause();
+  audio.currentTime = 0;
   audio.play();
 });
 
 // Backspace button
 backspace.addEventListener('click', () => {
-  audio.pause();
+  audio.currentTime = 0;
   audio.play();
   // Pela legibilidade do código 
   const equationText = screenEquation.textContent;
