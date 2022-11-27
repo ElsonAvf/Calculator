@@ -40,7 +40,7 @@ const screenEquation = document.querySelector('#equation-screen');
 const screenResult = document.querySelector('#result-screen');
 
 // Variáveis para operações
-let numero1 = '', numero2 = '', operador = ''
+let numero1 = '', numero2 = '', operador = '';
 let result;
 let equalSignWasClicked = false;
 
@@ -147,14 +147,14 @@ buttons.addEventListener('click', (e) => {
 backspace.addEventListener('click', () => {
   audio.currentTime = 0;
   audio.play();
-  
   // Pela legibilidade
   const equationText = screenEquation.textContent;
+  
   if (numero2) {
     numero2 = numero2.slice(0, numero2.length - 1);
     screenEquation.textContent = equationText.slice(0, (equationText.length - (numero2.length + 1))) + numero2;
-  } else if (equationText[equationText.length - 1].match(/[x|÷|-|+]/)) {
-    operator = '';
+  } else if (equationText[equationText.length - 1].match(/[x|÷|\-|+]/)) {
+    operador = '';
     screenEquation.textContent = equationText.slice(0, equationText.length -1);
   } else {
     numero1 = numero1.slice(0, numero2.length - 1);
