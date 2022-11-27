@@ -31,7 +31,7 @@ function operate(num1, operator, num2) {
 }
 
 // Variáveis para operações
-let numero1 = '', numero2 = '', operador = '', result;
+let numero1 = '', numero2 = '', operador = '', equalSignWasClicked = false, result;
 
 // Display inputs
 const screen = document.querySelector('#screen');
@@ -39,10 +39,12 @@ const buttons = document.querySelector('#main');
 const numbers = document.querySelector('#numbers');
 const audio = document.querySelector('audio');
 const backspace = document.querySelector('#backspace');
-
+const screenEquation = document.querySelector('#equation-screen');
+const screenResult = document.querySelector('#result-screen');
 
 function clean() {
-  screen.textContent = '',
+  screenResult.textContent = '';
+  screenEquation.textContent = '';
   numero1 = '';
   operador = '';
   numero2 = '';
@@ -52,25 +54,26 @@ function displayNumber(targetText) {
      if (targetText == '.') {
        testDotInput(targetText);
      } else if (operador && numero1) {
-          if (!numero2) {
-            numero2 += targetText;
-            screen.textContent = numero2;
-          } else if (numero2.length < 9) {
+         if (numero2.length < 9) {
                numero2 += targetText
-               screen.textContent = numero2;
+               screenEquation.textContent += targetText;
           }
      } else {
+       if (equalSignWasClicked) {
+         screenEquation.textContent = numero1;
+         equalSignWasClicked = false;
+       }
          if (numero1.length < 9) {
            numero1 += targetText;
-           screen.textContent = numero1;
+           screenEquation.textContent += targetText;
          }
      }
 }
 
 
 function makeCalc() {
-  result = operate(parseFloat(numero1), operador, parseFloat(numero2))
-  screen.textContent = Math.round(result*100)/100;
+  result = Math.round(operate(parseFloat(numero1), operador, parseFloat(numero2))*100)/100;
+  screenResult.textContent = result;
   numero1 = String(result);
   numero2 = '';
   operador = '';
@@ -78,13 +81,17 @@ function makeCalc() {
 
 function setOperador(targetText) {
   if (numero2) {
-    result = operate(parseFloat(numero1), operador, parseFloat(numero2))
-    screen.textContent = result;
-    numero1 = result;
+    makeCalc();
+    screenEquation.textContent = result;
+    screenEquation.textContent += targetText;
     operador = targetText;
-    numero2 = '';
   } else {
+    if (equalSignWasClicked) {
+      screenEquation.textContent = numero1;
+      equalSignWasClicked = false;
+    }
     operador = targetText;
+    screenEquation.textContent += targetText;
   }
 }
 
@@ -93,14 +100,14 @@ function testDotInput(targetText) {
     if (!screen.textContent.match(/[.]/g)) {
       if (numero2.length < 9) {
       numero2 += targetText;
-      screen.textContent = numero2;
+      screenEquation.textContent = numero2;
       }
     }
   } else {
     if (!screen.textContent.match(/[.]/g)) {
       if (numero1.length < 9) {
       numero1 += targetText;
-      screen.textContent = numero1;
+      screenEquation.textContent = numero1;
       }
     }
   }
@@ -121,19 +128,26 @@ buttons.addEventListener('click', (e) => {
   
   if (targetText == '=' && numero2 && numero1 && operador) {
     makeCalc();
+    equalSignWasClicked = true;
   }
   audio.pause();
   audio.play();
 });
 
+// Backspace button
 backspace.addEventListener('click', () => {
   audio.pause();
   audio.play();
+  // Pela legibilidade do código 
+  const equationText = screenEquation.textContent;
   if (numero2) {
     numero2 = numero2.slice(0, numero2.length - 1);
-    screen.textContent = numero2;
+    screenEquation.textContent = equationText.slice(0, (equationText.length - (numero2.length + 1))) + numero2;
+  } else if (equationText[equationText.length - 1].match(/[x|÷|-|+]/)) {
+    operator = '';
+    screenEquation.textContent = equationText.slice(0, equationText.length -1);
   } else {
     numero1 = numero1.slice(0, numero2.length - 1);
-    screen.textContent = numero1;
+    screenEquation.textContent = numero1;
   }
 })

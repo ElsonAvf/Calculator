@@ -17,27 +17,36 @@ body {
 }
 
 #calculator-container {
-  max-width: 410px;
+  max-width: 388px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   border-radius: 16px;
   box-shadow: 3px 3px 5px rgb(0,0,0,.4);
-  padding: 27px;
-  background-image: linear-gradient(#4A4A4A,#2C2C2C);
+  padding: 22px;
+  background-image: linear-gradient(#4A4A4A, #2C2C2C);
 }
 
 #screen {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  max-width: 100%;
   border-radius: 5px;
   box-shadow: inset 2px 2px 4px rgb(0,0,0,.4);
   height: 150px;
   background-color: #2E495C;
   color: white;
   font-size: 30px;
-  font-size: auto;
+}
+
+#result-screen, #equation-screen {
+  height: 75px;
+  overflow-wrap: break-word;
+  text-align: right;
+  max-width: 100%;
+  color: rgb(0,200,0);
+}
+
+#equation-screen {
+  color: #C9C9C9;
 }
 
 img {
