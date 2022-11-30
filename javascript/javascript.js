@@ -83,12 +83,15 @@ function makeCalc() {
 }
 
 function setOperador(targetText) {
-  if (numero2) {
+  if (!numero1.match(/[0-9]/) && targetText.match(/[\-]/)) {
+    numero1 = targetText;
+    screenEquation.textContent = targetText;
+  } else if (numero2) {
     makeCalc();
     screenEquation.textContent = result;
     screenEquation.textContent += targetText;
     operador = targetText;
-  } else {
+  } else if (numero1.match(/[0-9]/)) {
     if (equalSignWasClicked) {
       screenEquation.textContent = numero1;
       equalSignWasClicked = false;
